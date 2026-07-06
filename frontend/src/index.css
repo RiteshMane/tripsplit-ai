@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: #07080C;
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(139,124,246,0.16), transparent 40%),
+    radial-gradient(circle at 85% 0%, rgba(47,217,184,0.10), transparent 35%);
+  background-attachment: fixed;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #242835; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #33384a; }
+
+@layer components {
+  .glass-card {
+    @apply bg-base-800/60 backdrop-blur-xl border border-base-border rounded-xl2 shadow-glass;
+  }
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:border-accent-500/40 hover:shadow-glow;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-accent-600 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-base-border bg-base-800/60 px-5 py-2.5 text-sm font-medium text-white/80 transition-all hover:bg-base-700 hover:text-white active:scale-[0.98];
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-base-border bg-base-900/80 px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-accent-500/60;
+  }
+  .label-text {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-white/40;
+  }
+  .skeleton {
+    @apply animate-pulse rounded-lg bg-base-700/60;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-400 via-accent-500 to-mint-500 bg-clip-text text-transparent;
+  }
+}

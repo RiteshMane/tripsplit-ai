@@ -1,0 +1,18 @@
+# Lightweight option: run ONLY MongoDB in Docker, and run backend/frontend
+# locally with `npm run dev` (faster iteration, hot-reload works natively).
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: tripsplit-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: tripsplit
+
+volumes:
+  mongo_data:
