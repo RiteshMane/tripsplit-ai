@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/context/AuthContext";
 import { SocketProvider } from "@/context/SocketContext";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
@@ -19,6 +20,15 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <SocketProvider>
+          {/* Global toast host — must live above ALL routes (public and protected)
+              so toast.error()/toast.success() calls on pages like Login/Register
+              actually render instead of firing into nothing. */}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: { background: "#12141C", color: "#fff", border: "1px solid #22252F" },
+            }}
+          />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

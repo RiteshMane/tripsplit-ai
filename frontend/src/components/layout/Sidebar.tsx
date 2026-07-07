@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { LayoutDashboard, Map, Activity, BarChart3, UserCircle, Sparkles, LogOut, Compass } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Avatar } from "@/components/ui/Avatar";
@@ -18,7 +18,7 @@ export function Sidebar() {
 
   return (
     <aside className="hidden w-64 shrink-0 flex-col border-r border-base-border bg-base-900/60 px-5 py-6 backdrop-blur-xl lg:flex">
-      <div className="mb-10 flex items-center gap-2 px-1">
+      <Link to="/dashboard" className="mb-10 flex items-center gap-2 px-1 transition-opacity hover:opacity-80">
         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-accent-500 to-mint-500 shadow-glow">
           <Sparkles size={18} className="text-white" />
         </div>
@@ -26,7 +26,7 @@ export function Sidebar() {
           <p className="font-display text-lg font-bold leading-none">TripSplit</p>
           <p className="text-[10px] font-medium uppercase tracking-widest text-white/40">AI Powered</p>
         </div>
-      </div>
+      </Link>
 
       <nav className="flex flex-1 flex-col gap-1">
         {NAV.map(({ to, label, icon: Icon }) => (

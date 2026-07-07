@@ -37,8 +37,17 @@ export const login = asyncHandler(async (req, res) => {
   if (!email || !password) throw new ApiError(400, "Email and password are required");
 
   const user = await User.findOne({ email: email.toLowerCase() }).select("+password");
-  if (!user || !(await user.comparePassword(password))) {
-    throw new ApiError(401, "Invalid email or password");
+
+  // NOTE: this deliberately reveals whether an email is registered (a classic
+  // account-enumeration trade-off). For a small, invite-based group-expense
+  // app that's an acceptable trade for a clearer error message; for a
+  // public-facing product with untrusted signups, a single generic
+  // "Invalid email or password" message is the safer default.
+  if (!user) {
+    throw new ApiError(404, "No account found with this email. Please sign up first.");
+  }
+  if (!(await user.comparePassword(password))) {
+    throw new ApiError(401, "Incorrect password. Please try again.");
   }
 
   const token = signToken(user._id.toString());

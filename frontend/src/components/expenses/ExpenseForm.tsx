@@ -19,6 +19,7 @@ export function ExpenseForm({ trip, open, onClose, onCreated }: { trip: Trip; op
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
+  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [category, setCategory] = useState("");
   const [categorizing, setCategorizing] = useState(false);
   const [paidBy, setPaidBy] = useState(trip.members[0]?._id || "");
@@ -66,7 +67,7 @@ export function ExpenseForm({ trip, open, onClose, onCreated }: { trip: Trip; op
         splitMethod,
         participantIds: splitMethod === "equal" || splitMethod === "selected" ? selected : undefined,
         splitInput,
-        date: new Date().toISOString(),
+        date: new Date(date).toISOString(),
       });
       toast.success("Expense added");
       onCreated();
@@ -75,6 +76,7 @@ export function ExpenseForm({ trip, open, onClose, onCreated }: { trip: Trip; op
       setDescription("");
       setAmount("");
       setCategory("");
+      setDate(new Date().toISOString().slice(0, 10));
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Failed to add expense");
     } finally {
@@ -95,6 +97,10 @@ export function ExpenseForm({ trip, open, onClose, onCreated }: { trip: Trip; op
             <input required type="number" min="0" step="0.01" value={amount} onChange={(e) => setAmount(e.target.value)} className="input-field" placeholder="1200" />
           </div>
           <div>
+            <label className="label-text">Date</label>
+            <input required type="date" max={new Date().toISOString().slice(0, 10)} value={date} onChange={(e) => setDate(e.target.value)} className="input-field" />
+          </div>
+          <div className="col-span-2">
             <label className="label-text">Paid by</label>
             <select value={paidBy} onChange={(e) => setPaidBy(e.target.value)} className="input-field">
               {trip.members.map((m) => (

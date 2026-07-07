@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { MobileNav } from "./MobileNav";
-import { Toaster } from "react-hot-toast";
 
 export function AppLayout() {
   return (
@@ -17,12 +16,6 @@ export function AppLayout() {
         </main>
       </div>
       <MobileNav />
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: { background: "#12141C", color: "#fff", border: "1px solid #22252F" },
-        }}
-      />
     </div>
   );
 }
