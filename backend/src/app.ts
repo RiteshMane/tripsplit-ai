@@ -26,6 +26,9 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
+app.get("/", (_req, res) =>
+  res.json({ success: true, message: "TripSplit AI API is running. Try /api/health or /api/..." })
+);
 app.get("/api/health", (_req, res) => res.json({ success: true, status: "ok", service: "tripsplit-ai-backend" }));
 
 app.use("/api/auth", authRoutes);
